@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Trophy,
@@ -10,19 +10,17 @@ import {
   BarChart3,
   User,
   TrendingUp,
-  HousePlus,
 } from "lucide-react";
 
-import { View } from "@/features/tasktracker/types/types";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import CalendarBoard from "@/features/tasktracker/CalendarBoard";
-import ProgressPage from "@/features/tasktracker/ProgressCircle";
-import { Prayers } from "@/features/tasktracker/Prayers";
 import FinalTodoSection from "@/features/tasktracker/GoalsSection";
 import ReflectionSection from "@/features/tasktracker/ReflectionSection";
+import CalendarBoard from "@/features/tasktracker/CalendarBoard";
+import { Prayers } from "@/features/tasktracker/Prayers";
+import { HousePlus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import AppHeader from "@/features/header/AppHeader";
-import { createDate } from "@/features/tasktracker/hooks/trackerSlice";
+import { useAppSelector } from "@/store/hooks";
+import { View } from "@/features/tasktracker/types/types";
+import ProgressPage from "@/features/tasktracker/ProgressCircle";
 
 // --- ТИПЫ ---
 
@@ -40,7 +38,6 @@ interface DayData {
 
 const PersistenceTracker: React.FC = () => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   // Состояния
   const [view, setView] = useState<View>("BOARD");
   const [activeDay, setActiveDay] = useState<number>(1);
@@ -50,60 +47,46 @@ const PersistenceTracker: React.FC = () => {
 
   const dataState = useAppSelector((state) => state.tracker.yearlyData);
 
+  // Состояния данных (которые будем хранить)
+  const [prayers, setPrays] = useState<{ [key: string]: boolean }>({});
+  const [reflection, setReflection] = useState<string>("");
+  const [tasks, setTasks] = useState<Task[]>([]);
+
   // 1. Загрузка данных при старте
   const date = new Date();
 
-  const year = date.getFullYear();
-
-  const deyDate = date.getDate();
   const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(deyDate).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
 
-  const dayKey = `${year}-${month}-${day}`;
+  const dayKey = `${date.getFullYear()}-${month}-${day}`;
 
-  const countQuran = dataState[dayKey]?.Quran || 0;
+  const savedData = localStorage.getItem(`${dayKey}`);
+  useEffect(() => {
+    if (savedData) {
+      const parsed = JSON.parse(savedData) as DayData;
+      setPrays(parsed.prayers || {});
+      setReflection(parsed.reflection || "");
+      setTasks(parsed.tasks || []);
+    } else {
+      // Сброс полей, если данных для этого дня нет
+      setPrays({});
+      setReflection("");
+      setTasks([]);
+    }
+  }, [activeDay, currentMonth]);
 
-  const count = Object.entries(dataState)
-    .sort(([a], [b]) => new Date(a).getTime() - new Date(b).getTime())
-    .reduce(
-      (acc, [key, isFinished], index, arr) => {
-        if (!isFinished) {
-          acc.curr = 0;
-          return acc;
-        }
-
-        if (index === 0) {
-          acc.curr = 1;
-        } else {
-          const prevDate = new Date(arr[index - 1][0]);
-          const currDate = new Date(key);
-          const diffDays =
-            (currDate.getTime() - prevDate.getTime()) / (1000 * 60 * 60 * 24);
-
-          acc.curr = diffDays === 1 ? acc.curr + 1 : 1;
-        }
-
-        acc.max = Math.max(acc.max, acc.curr);
-        return acc;
-      },
-      { max: 0, curr: 0 }
-    );
-
-  const createDay = useCallback(() => {
-    dispatch(createDate({ dayKey }));
-    setActiveDay(deyDate);
-    setView("DAY_DETAILS");
-  }, [dayKey]);
+  const count = Object.values(dataState).filter(
+    (el) => el.isFinished === true
+  ).length;
 
   // 2. Автоматическое сохранение при любых изменениях
-  // useEffect(() => {
-  //   const dataToSave: DayData = { prayers, reflection, tasks };
-  //   localStorage.setItem(`${dayKey}`, JSON.stringify(dataToSave));
-  // }, [prayers, reflection, tasks, activeDay, currentMonth]);
+  useEffect(() => {
+    const dataToSave: DayData = { prayers, reflection, tasks };
+    localStorage.setItem(`${dayKey}`, JSON.stringify(dataToSave));
+  }, [prayers, reflection, tasks, activeDay, currentMonth]);
 
   return (
-    <div className="min-h-screen dark:bg-black green:bg-background green:text-foreground  text-white font-sans flex flex-col items-center select-none overflow-x-hidden">
-      <AppHeader />
+    <div className="min-h-screen bg-black text-white font-sans flex flex-col items-center select-none overflow-x-hidden">
       <main className="w-full max-w-md p-5 pb-36 min-h-screen relative">
         <AnimatePresence mode="wait">
           {view === "BOARD" ? (
@@ -125,12 +108,12 @@ const PersistenceTracker: React.FC = () => {
                 <h1 className="text-2xl font-bold mb-6 tracking-tight">
                   Сегодня{" "}
                   <span className="text-[#f4a01c] font-black">
-                    {deyDate} день
+                    {activeDay} день
                   </span>
                 </h1>
 
                 <button
-                  onClick={createDay}
+                  onClick={() => setView("DAY_DETAILS")}
                   className="w-full bg-[#f4a01c] text-black font-black py-4.5 rounded-2xl flex items-center justify-center gap-2 uppercase text-sm tracking-widest active:scale-95 transition-all shadow-[0_10px_30px_rgba(244,160,28,0.2)]"
                 >
                   Открыть трекер <Zap size={18} fill="currentColor" />
@@ -140,12 +123,12 @@ const PersistenceTracker: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <StatCard
                   icon={<Trophy className="text-[#f4a01c]" />}
-                  val={count.max.toString()}
+                  val={count.toString()}
                   label="Серия дней"
                 />
                 <StatCard
                   icon={<BookOpen className="text-emerald-500" />}
-                  val={countQuran?.toString()}
+                  val="15"
                   label="Мин. Корана"
                 />
               </div>
@@ -180,21 +163,19 @@ const PersistenceTracker: React.FC = () => {
               <Prayers
                 setView={setView}
                 activeDay={activeDay}
-                dayKey={dayKey}
+                currentMonth={currentMonth}
               />
 
               {/* Добавление целей */}
               <FinalTodoSection
                 activeDay={activeDay}
                 currentMonth={currentMonth}
-                dayKey={dayKey}
               />
 
               {/* Рефлексия */}
               <ReflectionSection
                 activeDay={activeDay}
                 currentMonth={currentMonth}
-                year={year}
               />
             </motion.div>
           )}
@@ -202,7 +183,7 @@ const PersistenceTracker: React.FC = () => {
       </main>
 
       {/* Навигация */}
-      <nav className="fixed bottom-0 left-0 right-0 dark:bg-black/90 backdrop-blur-2xl border-t border-[#1a1a1a] py-6 px-10 z-50">
+      <nav className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-2xl border-t border-[#1a1a1a] py-6 px-10 z-50">
         <div className="max-w-md mx-auto flex justify-between items-center">
           <NavItem
             icon={<Calendar size={20} />}
