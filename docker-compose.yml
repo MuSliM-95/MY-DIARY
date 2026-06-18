@@ -1,0 +1,19 @@
+version: "3"
+
+services: 
+  frontend: 
+     image: ./
+     container_name: tracker
+     ports: 
+       - 3000:3000
+     networks: 
+       - dev
+     volumes: 
+       - data:/opt/app/data
+
+networks: 
+   dev: 
+    driver: bridge       
+
+volumes: 
+   data:    

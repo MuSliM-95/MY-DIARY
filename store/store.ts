@@ -5,7 +5,8 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from "redux-persist/lib/storage";
 
 import { getPersistConfig } from 'redux-deep-persist'
-import trackerSlice from "@/features/tasktracker/hooks/trackerSlice";
+import trackerSlice from "./hooks/trackerSlice";
+
 
 const rootReducer = combineReducers({
   tracker: trackerSlice

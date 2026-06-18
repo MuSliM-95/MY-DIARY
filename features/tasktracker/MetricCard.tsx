@@ -1,4 +1,6 @@
-import React from "react";
+'use client';
+
+import React from 'react';
 
 type MetricCardProps = {
   title: string;
@@ -8,6 +10,7 @@ type MetricCardProps = {
   step?: number;
   unit?: string;
   onChange: (value: number) => void;
+  isDarkTheme: boolean;
 };
 
 export const MetricCard: React.FC<MetricCardProps> = ({
@@ -16,45 +19,26 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   min = 0,
   max = 120,
   step = 5,
-  unit = "мин",
+  unit = 'мин',
   onChange,
+  isDarkTheme,
 }) => {
+  const accentColor = isDarkTheme ? 'amber' : 'emerald';
+  const accentHex = isDarkTheme ? '#f59e0b' : '#10b981';
+
   return (
     <div
-      style={{
-        background: "linear-gradient(135deg, #0f3d2e, #0a2a20)",
-        padding: "24px",
-        borderRadius: "20px",
-        width: "100%",
-        boxSizing: "border-box",
-      }}
+      className={`${isDarkTheme ? 'bg-[#1a1a1a]' : 'bg-[#0b1f17]'} border ${isDarkTheme ? 'border-[#2d2d2d]' : 'border-[#123d2c]'} p-6 rounded-2xl w-full`}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
+      <div className="flex justify-between items-center mb-5">
         <span
-          style={{
-            color: "#9aa6a0",
-            fontSize: "14px",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
-            fontWeight: 600,
-          }}
+          className={`${isDarkTheme ? 'text-amber-300/60' : 'text-emerald-200/60'} text-[14px] uppercase tracking-widest font-semibold`}
         >
           {title}
         </span>
 
         <span
-          style={{
-            color: "#ff9f1c",
-            fontSize: "20px",
-            fontWeight: 700,
-          }}
+          className={`text-${accentColor}-500 text-[20px] font-bold`}
         >
           {value} {unit}
         </span>
@@ -67,10 +51,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
+        className="w-full cursor-pointer"
         style={{
-          width: "100%",
-          accentColor: "#ff9f1c",
-          cursor: "pointer",
+          accentColor: accentHex
         }}
       />
     </div>

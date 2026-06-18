@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+   app:
+      container_name: mu-app
+      build:
+         context: .
+         dockerfile: ./apps/app/DockerFile
+
+      restart: always
+      ports:
+         - 3001:80
+
+      networks:
+         - dev
+
+   api:
+      container_name: my-api
+      build:
+         context: .
+         dockerfile: ./apps/api/DockerFile
+
+      restart: always
+      ports:
+         - 3002:3000
+      volumes:
+         - ./.env:/opt/app/.env
+      networks:
+         - dev
+      depends_on:
+         - rmq
+
+   converter:
+      container_name: converter
+      build:
+         context: .
+         dockerfile: ./apps/converter/DockerFile
+      restart: always
+      volumes:
+         - ./.env:/opt/app/.env
+      networks:
+         - dev
+      depends_on:
+         - rmq
+
+   rmq:
+      image: rabbitmq:management
+      restart: always
+      networks:
+         - dev
+      environment:
+         - RABBITMQ_DEFAULT_USER=admin
+         - RABBITMQ_DEFAULT_PASS=admin
+
+networks:
+   dev:
+      driver:
+         - bridge
