@@ -27,6 +27,12 @@ services:
     networks:
       - dev
 
+  serbot:
+    image: serbot/serbot
+    volumes:
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+
 networks:
   dev:
     driver: bridge
