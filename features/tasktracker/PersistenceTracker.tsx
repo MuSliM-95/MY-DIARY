@@ -14,6 +14,7 @@ import {
   Sun,
   Moon,
   Brain,
+  NotebookPen,
 } from "lucide-react";
 
 import CalendarBoard from "./CalendarBoard";
@@ -82,7 +83,12 @@ const PersistenceTracker: React.FC = () => {
     >
       {/* Кастомный заголовок с кнопкой переключения темы */}
       <div className="w-full max-w-md p-5 flex justify-between items-center">
-        <div className="text-xl font-bold">Мои привычки</div>
+        <div className="flex flex-col leading-none">
+          <span className="text-xl font-bold">YOUR DIARY</span>
+          <span className="text-[8px] uppercase tracking-[0.3em] text-muted-foreground">
+            ТВОЙ ДНЕВНИК
+          </span>
+        </div>
         <div className="flex items-center gap-4">
           <button
             onClick={() => setTheme(isDarkTheme ? "green" : "dark")}
@@ -305,8 +311,8 @@ const PersistenceTracker: React.FC = () => {
           <NavItem
             onClick={() => setView("THOUGHTS")}
             active={view === "THOUGHTS"}
-            icon={<Brain size={20} />}
-            label="Мысли"
+            icon={<NotebookPen size={20} />}
+            label="Дневник"
             isDarkTheme={isDarkTheme}
           />
 

@@ -7,7 +7,7 @@ export const LegalSection = () => {
 		  </h2>
   
 		  <p className="mt-3 text-sm text-zinc-400 leading-relaxed">
-			Atomic System предназначен для отслеживания привычек,
+			Your Diary предназначен для отслеживания привычек,
 			ежедневной активности и личного прогресса.
 		  </p>
 		</div>
@@ -51,7 +51,7 @@ export const LegalSection = () => {
 		  </h3>
   
 		  <p className="mt-2 text-sm text-zinc-400 leading-relaxed">
-			По мере развития Atomic System данные условия могут
+			По мере развития Your Diary данные условия могут
 			обновляться.
 		  </p>
 		</div>

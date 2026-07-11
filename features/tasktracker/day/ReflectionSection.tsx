@@ -2,7 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { PenSquare, CheckCircle2, Sparkles, CheckCheck } from "lucide-react";
+import {
+  PenSquare,
+  CheckCircle2,
+  Sparkles,
+  CheckCheck,
+  Wallet,
+} from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   finishDay,
@@ -374,7 +380,7 @@ const ReflectionSection: React.FC<ReflectionSectionProps> = ({
               className="bg-[#111] border border-white/10 rounded-3xl p-6 max-w-md w-full text-center"
             >
               <h2 className="text-white text-lg font-bold mb-3">
-                ❤️ Поддержать Atomic Flow
+                ❤️ Поддержать Your Diary
               </h2>
 
               <p className="text-zinc-400 text-sm mb-6">
@@ -392,9 +398,13 @@ const ReflectionSection: React.FC<ReflectionSectionProps> = ({
                   Telegram
                 </Link>
 
-                <button className="bg-amber-500 text-black py-3 rounded-2xl font-bold">
-                  Донат
-                </button>
+                <Link
+                  href={"https://pay.cloudtips.ru/p/4b2ee0a7"}
+                  className="bg-amber-500 text-black py-3 flex items-center justify-center rounded-2xl font-bold"
+                  target="_blank"
+                >
+                  <Wallet />
+                </Link>
 
                 <button onClick={closeAll} className="text-zinc-400 text-sm">
                   Позже

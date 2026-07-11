@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/store/hooks";
-import { importTracker } from "@/store/hooks/trackerSlice";
+import { importMerge, importTracker } from "@/store/hooks/trackerSlice";
 import { FileUp, CopyPlus, Save } from "lucide-react";
 import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -66,7 +66,7 @@ export const ImportConflictModal: React.FC<Props> = ({
       const text = await file.text();
       const parsed = JSON.parse(text);
 
-      // dispatch(importMerge(parsed));
+      dispatch(importMerge(parsed));
       onClose();
       toast.message("Данные объединены");
     } catch (error) {

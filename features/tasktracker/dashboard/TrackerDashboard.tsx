@@ -236,7 +236,7 @@ export default function TrackerDashboard({ theme, todayKey }: Props) {
             <div style="font-size: 32px; font-weight: 800; letter-spacing: -0.03em; color: ${
               config.textPrimary
             };">
-              Мои Привычки
+            YOUR DIARY
             </div>
             <div style="margin-top: 6px; font-size: 14px; color: ${
               config.textSecondary

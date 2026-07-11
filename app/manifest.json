@@ -1,6 +1,6 @@
 {
-	"name": "MY DIARY",
-	"short_name": "MY DIARY",
+	"name": "YOUR DIARY",
+	"short_name": "YOUR DIARY",
 	"display": "standalone",
 	"background_color": "#000000",
 	"theme_color": "#000000",

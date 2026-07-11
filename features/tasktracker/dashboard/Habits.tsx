@@ -1,4 +1,3 @@
-import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { ExportBlockKey, HabitProgress, Period } from "../types/dashboard.type";
 import { DayEntry, HabitTask, TrackerState } from "../types/types";

@@ -249,8 +249,7 @@ export const trackerSlice = createSlice({
       return action.payload;
     },
     importMerge: (state, action: PayloadAction<TrackerState>) => {
-      const incoming = action.payload;
-
+      const incoming = action.payload;      
       const yearlyData = { ...state.yearlyData };
 
       Object.entries(incoming.yearlyData || {}).forEach(([date, newDay]) => {
