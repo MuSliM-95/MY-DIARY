@@ -28,7 +28,7 @@ services:
       - dev
 
   serbot:
-    image: serbot/serbot
+    image: sertbot/sertbot
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
