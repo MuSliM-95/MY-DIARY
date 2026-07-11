@@ -1,7 +1,8 @@
-
 services:
   frontend:
-    image: ./Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: tracker
     networks:
       - dev
