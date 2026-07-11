@@ -15,7 +15,7 @@ FROM node:14-alpine
 
 WORKDIR /opt/app
 
-ADD package.json ./
+ADD *.json ./
 
 RUN npm ci --omit=dev
 
