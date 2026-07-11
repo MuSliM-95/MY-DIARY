@@ -1,8 +1,8 @@
 FROM node:20-alpine as build
 
-WORKDIR /opt/app
+WORKDIR /app
 
-ADD *.json ./
+COPY *.json ./
 
 RUN npm ci 
 
@@ -13,14 +13,18 @@ RUN npm run build
 
 FROM node:20-alpine as runner
 
-WORKDIR /opt/app
+WORKDIR /app
 
-ADD *.json ./
+COPY *.json ./
 
 RUN npm ci --omit=dev
 
-COPY --from=build /opt/app/.next ./.next
-COPY --from=build /opt/app/public ./public
-COPY --from=build /opt/app/next.config.ts ./next.config.ts
+COPY --from=build /app/public ./public
+COPY --from=build /app/.next/static ./.next/static
 
-CMD ["node", "./dist/main.js"]
+# 2. Копируем саму standalone сборку (включая server.js) напрямую в корень /app
+COPY --from=build /app/.next/standalone ./
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
