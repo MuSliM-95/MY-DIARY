@@ -1,7 +1,7 @@
 
 services:
   frontend:
-    image: ./
+    image: ./Dockerfile
     container_name: tracker
     networks:
       - dev
