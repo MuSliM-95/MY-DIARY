@@ -114,7 +114,7 @@ export default function RootLayout({
         <ReduxProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="next"
+            defaultTheme="dark"
             enableSystem={false}
             themes={["next", "dark"]}
           >

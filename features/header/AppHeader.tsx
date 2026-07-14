@@ -1,18 +1,10 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { Moon, Leaf } from "lucide-react";
 
 const AppHeader = () => {
   const { theme, setTheme } = useTheme();
-  // const [mounted, setMounted] = useState(false);
-
-  // useEffect(() => {
-  //   setMounted(true);
-  // }, []);
-
-  // if (!mounted) return null;
 
   const isGreen = theme === "green" ? "dark" : "";
 
