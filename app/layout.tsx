@@ -3,6 +3,7 @@ import { ThemeProvider } from "next-themes";
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReduxProvider } from "@/providers/ReduxProvider";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,8 +55,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Твой Дневник",
-    description:
-      "Привычки, молитвы, Коран и личный прогресс.",
+    description: "Привычки, молитвы, Коран и личный прогресс.",
   },
 };
 
@@ -82,6 +82,34 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${geistSans.variable} bg-black ${geistMono.variable}`}
       >
+        <Script id="yandex-metrika" strategy="afterInteractive">
+          {`
+            (function(m,e,t,r,i,k,a){
+              m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+              m[i].l=1*new Date();
+              for (var j = 0; j < document.scripts.length; j++) {
+                if (document.scripts[j].src === r) return;
+              }
+              k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+              k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+            })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+            ym(${process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID}, "init", {
+              clickmap:true,
+              trackLinks:true,
+              accurateTrackBounce:true
+            });
+          `}
+        </Script>
+
+        <noscript>
+          <img
+            src={`https://mc.yandex.ru/watch/${process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID}`}
+            style={{ position: "absolute", left: "-9999px" }}
+            alt=""
+          />
+        </noscript>
         {/* <Toaster /> */}
         <ReduxProvider>
           <ThemeProvider
