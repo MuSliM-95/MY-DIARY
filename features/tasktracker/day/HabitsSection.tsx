@@ -51,7 +51,7 @@ export default function HabitsSection({ isDarkTheme, activeDate }: Props) {
 
   const [taskType, setTaskType] = useState<HabitTask["type"]>("boolean");
 
-  const [taskTarget, setTaskTarget] = useState(1);
+  const [taskTarget, setTaskTarget] = useState("");
 
   const [taskUnit, setTaskUnit] = useState("");
 
@@ -155,14 +155,14 @@ export default function HabitsSection({ isDarkTheme, activeDate }: Props) {
     setEditingTaskId(task.id);
     setTaskName(task.name);
     setTaskType(task.type);
-    setTaskTarget(task.target);
+    setTaskTarget(String(task.target));
     setTaskUnit(task?.unit || "");
   };
 
   const resetTaskForm = () => {
     setTaskName("");
     setEditingTaskId(null);
-    setTaskTarget(1);
+    setTaskTarget(String(1));
     setTaskUnit("");
   };
 
@@ -190,7 +190,7 @@ export default function HabitsSection({ isDarkTheme, activeDate }: Props) {
 
                 type: taskType,
 
-                target: taskTarget,
+                target: Number(taskTarget) || 1,
 
                 unit: taskUnit || undefined,
               }
@@ -205,7 +205,7 @@ export default function HabitsSection({ isDarkTheme, activeDate }: Props) {
 
         type: taskType,
 
-        target: taskTarget,
+        target: Number(taskTarget) || 1,
 
         unit: taskUnit || undefined,
       };
@@ -254,22 +254,6 @@ export default function HabitsSection({ isDarkTheme, activeDate }: Props) {
     setCategory(habit.category);
     setTimeOfDay(habit.timeOfDay);
     setTasks(habit.tasks);
-  };
-
-  const toggleTask = (habit: Habit, taskId: string) => {
-    const prev = habit.progress?.[activeDate]?.[taskId];
-
-    dispatch(
-      updateHabitTaskProgress({
-        habitId: habit.id,
-
-        taskId,
-
-        day: activeDate,
-
-        value: prev?.completed ? 0 : 1,
-      })
-    );
   };
 
   const closeForm = () => {
@@ -697,7 +681,8 @@ export default function HabitsSection({ isDarkTheme, activeDate }: Props) {
                 <input
                   type="number"
                   value={taskTarget}
-                  onChange={(e) => setTaskTarget(Number(e.target.value))}
+                  min={0}
+                  onChange={(e) => setTaskTarget(e.target.value)}
                   className={input}
                   placeholder="Цель"
                 />
