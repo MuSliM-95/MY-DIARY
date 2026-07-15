@@ -355,9 +355,10 @@ const ReflectionSection: React.FC<ReflectionSectionProps> = ({
 
                 <button
                   onClick={() => setDonateModal(true)}
-                  className="text-white/70 text-sm hover:text-white"
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-white/80 text-sm font-medium transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:text-white hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  ❤️ Поддержать проект
+                  <span className="text-base">❤️</span>
+                  <span>Поддержать проект</span>
                 </button>
               </div>
             </motion.div>
