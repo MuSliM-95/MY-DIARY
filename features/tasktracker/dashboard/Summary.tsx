@@ -176,9 +176,9 @@ export const Summary: React.FC<Props> = ({
               "absolute bottom-0 left-0 h-[2px]",
               isDark ? "bg-amber-500" : "bg-emerald-400"
             )}
-            style={{
-              width: `${analytics.consistency}%`,
-            }}
+            // style={{
+            //   width: `${100}%`,
+            // }}
           />
 
           <div className="flex items-center gap-2 mb-4">
