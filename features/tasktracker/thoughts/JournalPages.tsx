@@ -162,7 +162,7 @@ export const JournalRightPage = forwardRef<HTMLDivElement, any>(
                   / {(item.day?.todos || []).length}
                 </div>
                 <div className="text-[11px] opacity-40 mt-1 uppercase tracking-wider">
-                  Задачи
+                  ДНЕВНЫЕ ЦЕЛИ
                 </div>
               </div>
               <div className={gridBlock}>
@@ -187,7 +187,7 @@ export const JournalRightPage = forwardRef<HTMLDivElement, any>(
               <div className="border-t border-white/[0.04] pt-4 font-sans">
                 <div className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-white/30 flex items-center gap-1.5">
                   <span className="opacity-20">۞</span>
-                  Привычки и ритуалы
+                  Привычки
                 </div>
                 <div className="space-y-2 max-h-[170px] overflow-y-auto pr-1">
                   {dayHabits.map((habit: any) => {
