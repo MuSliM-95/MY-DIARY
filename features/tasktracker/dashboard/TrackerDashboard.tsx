@@ -9,7 +9,6 @@ import { ExportBlockKey, Period } from "../types/dashboard.type";
 import { Habits } from "./Habits";
 import { Summary } from "./Summary";
 import { Cards } from "./Cards";
-import { createRoot } from "react-dom/client";
 
 export interface Habit {
   id: string;
@@ -579,26 +578,6 @@ export default function TrackerDashboard({ theme, todayKey }: Props) {
           <Download size={16} />
         </button>
       </div>
-
-      {/* <div className="flex gap-2 flex-wrap">
-        {Object.entries(exportConfig).map(([key, value]) => (
-          <button
-            key={key}
-            onClick={() =>
-              setExportConfig((prev) => ({
-                ...prev,
-                [key]: !prev[key as ExportBlockKey],
-              }))
-            }
-            className={cn(
-              "px-2 py-1 rounded-xl border text-[12px]",
-              value ? accent : `${card} ${muted}`
-            )}
-          >
-            {key}
-          </button>
-        ))}
-      </div> */}
 
       {/* EXPORTABLE */}
       <div ref={cardRef} className="flex flex-col gap-4">
