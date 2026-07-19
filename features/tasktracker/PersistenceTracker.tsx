@@ -283,7 +283,7 @@ const PersistenceTracker: React.FC = () => {
       >
         <div className="max-w-md mx-auto flex justify-between items-center">
           <NavItem
-            icon={<Calendar size={20} />}
+            icon={<Calendar size={18} />}
             label="Доска"
             active={view === "BOARD"}
             onClick={() => setView("BOARD")}
@@ -291,7 +291,7 @@ const PersistenceTracker: React.FC = () => {
           />
 
           <NavItem
-            icon={<Zap size={20} />}
+            icon={<Zap size={18} />}
             label="Сегодня"
             active={view === "DAY_DETAILS"}
             onClick={() => {
@@ -314,7 +314,7 @@ const PersistenceTracker: React.FC = () => {
           <NavItem
             onClick={() => setView("THOUGHTS")}
             active={view === "THOUGHTS"}
-            icon={<NotebookPen size={20} />}
+            icon={<NotebookPen size={18} />}
             label="Дневник"
             isDarkTheme={isDarkTheme}
           />
@@ -322,14 +322,14 @@ const PersistenceTracker: React.FC = () => {
           <NavItem
             onClick={() => setView("PROGRESS")}
             active={view === "PROGRESS"}
-            icon={<BarChart3 size={20} />}
+            icon={<BarChart3 size={18} />}
             label="Прогресс"
             isDarkTheme={isDarkTheme}
           />
           <NavItem
             onClick={() => setView("PARTNERS")}
             active={view === "PARTNERS"}
-            icon={<Handshake size={20} />}
+            icon={<Handshake size={18} />}
             label="Партнерки"
             isDarkTheme={isDarkTheme}
           />

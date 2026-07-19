@@ -24,7 +24,7 @@ const NavItem: React.FC<NavItemProps> = ({
     }`}
   >
     {icon}
-    <span className="text-[8px] uppercase font-black tracking-widest">
+    <span className="text-[7px] uppercase font-black tracking-widest">
       {label}
     </span>
   </button>
