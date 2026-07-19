@@ -5,6 +5,9 @@ services:
       dockerfile: Dockerfile
       args:
         - NEXT_PUBLIC_YANDEX_METRIKA_ID=${NEXT_PUBLIC_YANDEX_METRIKA_ID}
+        - NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=${NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}
+        - NEXT_PUBLIC_CLOUD_TIPS=${NEXT_PUBLIC_CLOUD_TIPS}
+        - NEXT_PUBLIC_TELEGRAM_LINK=${NEXT_PUBLIC_TELEGRAM_LINK}
     container_name: tracker
     restart: always
     networks:
