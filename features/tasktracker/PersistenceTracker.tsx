@@ -13,8 +13,8 @@ import {
   TrendingUp,
   Sun,
   Moon,
-  Brain,
   NotebookPen,
+  Handshake,
 } from "lucide-react";
 
 import CalendarBoard from "./CalendarBoard";
@@ -36,6 +36,7 @@ import { ReflectionsPage } from "./thoughts/ReflectionsPage";
 import { WelcomeSlides } from "./WelcomeSlides ";
 import { LegalSection } from "./LegalSection ";
 import { useAppSelector } from "@/store/hooks";
+import { PartnersSection } from "./PartnersSection/PartnersSection";
 
 const PersistenceTracker: React.FC = () => {
   const onboarding_completed = useAppSelector(
@@ -232,6 +233,8 @@ const PersistenceTracker: React.FC = () => {
             <ProfileSection theme={isDarkTheme} />
           ) : view === "LEGAL" ? (
             <LegalSection />
+          ) : view === "PARTNERS" ? (
+            <PartnersSection theme={isDarkTheme} />
           ) : (
             <motion.div
               key="details"
@@ -321,6 +324,13 @@ const PersistenceTracker: React.FC = () => {
             active={view === "PROGRESS"}
             icon={<BarChart3 size={20} />}
             label="Прогресс"
+            isDarkTheme={isDarkTheme}
+          />
+          <NavItem
+            onClick={() => setView("PARTNERS")}
+            active={view === "PARTNERS"}
+            icon={<Handshake size={20} />}
+            label="Партнерки"
             isDarkTheme={isDarkTheme}
           />
         </div>

@@ -20,7 +20,8 @@ export type View =
   | "PROGRESS"
   | "THOUGHTS"
   | "PROFILE"
-  | "LEGAL";
+  | "LEGAL"
+  | "PARTNERS";
 
 export interface Task {
   id: number;

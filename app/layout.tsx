@@ -78,6 +78,8 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
         />
+        <script>window.yaContextCb=window.yaContextCb||[]</script>
+        <script src="https://yandex.ru/ads/system/context.js" async></script>
       </head>
       <body
         className={`${inter.className} ${geistSans.variable} bg-black ${geistMono.variable}`}
@@ -102,14 +104,31 @@ export default function RootLayout({
             });
           `}
         </Script>
-
         <noscript>
-          <img
-            src={`https://mc.yandex.ru/watch/${process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID}`}
-            style={{ position: "absolute", left: "-9999px" }}
-            alt=""
-          />
+          <div>
+            <img
+              src={`https://mc.yandex.ru/watch/${process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID}`}
+              style={{ position: "absolute", left: "-9999px" }}
+              alt=""
+            />
+          </div>
         </noscript>
+        {/* Загрузка основного скрипта Google Tag */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
+          strategy="afterInteractive"
+        />
+        {/* Инициализация данных */}
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}');
+          `}
+        </Script>
+
         {/* <Toaster /> */}
         <ReduxProvider>
           <ThemeProvider
