@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   Sparkles,
   CheckCheck,
-  Wallet,
 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
@@ -15,7 +14,7 @@ import {
   updateDayEntry,
   updateReflection,
 } from "@/store/hooks/trackerSlice";
-import Link from "next/link";
+
 
 interface ReflectionSectionProps {
   activeDay: number;
@@ -46,13 +45,6 @@ const ReflectionSection: React.FC<ReflectionSectionProps> = ({
   const [dayFinished, setDayFinished] = useState(
     yearlyData?.isFinished || false
   );
-  const [showModal, setShowModal] = useState(false);
-  const [donateModal, setDonateModal] = useState(false);
-
-  const closeAll = () => {
-    setShowModal(false);
-    setDonateModal(false);
-  };
 
   // Синхронизация с Redux состоянием
   useEffect(() => {
@@ -83,8 +75,6 @@ const ReflectionSection: React.FC<ReflectionSectionProps> = ({
 
       setIsSaved(true);
       setDayFinished(true);
-      setShowModal(true);
-
       setTimeout(() => {
         setIsSaved(false);
       }, 2000);
@@ -321,100 +311,6 @@ const ReflectionSection: React.FC<ReflectionSectionProps> = ({
           </motion.div>
         )}
       </AnimatePresence>
-      <AnimatePresence>
-        {showModal && !donateModal && (
-          <motion.div
-            className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 p-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-[#111] border border-white/10 rounded-3xl p-6 max-w-md w-full text-center"
-            >
-              <h2 className="text-xl font-bold text-white mb-3">
-                🎉 Отличная работа!
-              </h2>
-
-              <p className="text-zinc-400 text-sm mb-6">
-                Сегодня вы стали лучше на 1%.
-                <br />
-                Продолжайте двигаться вперёд.
-              </p>
-
-              <div className="flex flex-col gap-3">
-                <button
-                  onClick={closeAll}
-                  className="bg-amber-500 text-black font-bold py-3 rounded-2xl"
-                >
-                  Продолжить
-                </button>
-
-                <button
-                  onClick={() => setDonateModal(true)}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-white/80 text-sm font-medium transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:text-white hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  <span className="text-base">❤️</span>
-                  <span>Поддержать проект</span>
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {/* ================= MODAL 2 ================= */}
-      <AnimatePresence>
-        {donateModal && (
-          <motion.div
-            className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 p-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className="bg-[#111] border border-white/10 rounded-3xl p-6 max-w-md w-full text-center"
-            >
-              <h2 className="text-white text-lg font-bold mb-3">
-                ❤️ Поддержать Your Diary
-              </h2>
-
-              <p className="text-zinc-400 text-sm mb-6">
-                Проект развивается бесплатно.
-                <br />
-                Любая поддержка помогает развитию.
-              </p>
-
-              <div className="flex flex-col gap-3">
-                <Link
-                  href={"https://t.me/AsIntended_ru"}
-                  target="_blank"
-                  className="bg-green-500 text-black py-3 rounded-2xl font-bold"
-                >
-                  Telegram
-                </Link>
-
-                <Link
-                  href={"https://pay.cloudtips.ru/p/4b2ee0a7"}
-                  className="bg-amber-500 text-black py-3 flex items-center justify-center rounded-2xl font-bold"
-                  target="_blank"
-                >
-                  <Wallet />
-                </Link>
-
-                <button onClick={closeAll} className="text-zinc-400 text-sm">
-                  Позже
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>{" "}
     </motion.div>
   );
 };
