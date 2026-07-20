@@ -1,15 +1,17 @@
-import { HabitProgress } from "./dashboard.type";
-
 export interface Todo {
   id: string;
   text: string;
   completed: boolean;
 }
 
+export interface HabitProgress {
+  completed: boolean;
+  value: number;
+}
+
 export interface DayEntry {
   isFinished: boolean;
   todos: Todo[];
-  prayers: { [key: string]: boolean };
   Quran: number;
   reflection: string;
 }
@@ -27,16 +29,6 @@ export interface Task {
   id: number;
   text: string;
   completed: boolean;
-}
-
-export interface DayState {
-  isFinished: boolean;
-  Quran: number;
-  prayers: {
-    [key: string]: boolean;
-  };
-  reflection: string;
-  tasks: Task[];
 }
 
 export interface TrackerState {
@@ -65,17 +57,5 @@ export interface Habit {
   progress?: Record<string, Record<string, HabitProgress>>;
 }
 
-export interface IStats {
-  totalTasks: number;
-  completedTasks: number;
-  totalPrayers: number;
-  completedPrayers: number;
-  totalQuran: number;
-  finishedDays: number;
-  habitsCompleted: number;
-  longestStreak: number;
-  taskCompletionRate: number;
-  prayerCompletionRate: number;
-}
-
-export type SettingsView = "main" | "about" | "legal";
+export type Period = "day" | "month" | "halfyear" | "year" | "all";
+export type ExportBlockKey = "cards" | "habits" | "summary";

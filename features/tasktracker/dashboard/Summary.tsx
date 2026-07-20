@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { DayEntry, TrackerState } from "../types/types";
+import { DayEntry, ExportBlockKey, Period, TrackerState } from "../types/types";
 import { BookOpen } from "lucide-react";
-import { ExportBlockKey, Period } from "../types/dashboard.type";
+
 
 interface Props {
   className?: string;

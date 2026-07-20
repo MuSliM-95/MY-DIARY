@@ -226,7 +226,7 @@ const PersistenceTracker: React.FC = () => {
               />
             </motion.div>
           ) : view === "PROGRESS" ? (
-            <TrackerDashboard theme={isDarkTheme} todayKey={today} />
+            <TrackerDashboard theme={isDarkTheme} todayKey={today} count={count} />
           ) : view === "THOUGHTS" ? (
             <ReflectionsPage theme={isDarkTheme} />
           ) : view === "PROFILE" ? (
@@ -300,17 +300,6 @@ const PersistenceTracker: React.FC = () => {
             }}
             isDarkTheme={isDarkTheme}
           />
-          {/* <NavItem
-            icon={<Zap size={20} />}
-            label="Сегодня"
-            active={view === "DAY_DETAILS"}
-            onClick={() => {
-              setView("DAY_DETAILS");
-              createDay(deyDate);
-            }}
-            isDarkTheme={isDarkTheme}
-          /> */}
-
           <NavItem
             onClick={() => setView("THOUGHTS")}
             active={view === "THOUGHTS"}

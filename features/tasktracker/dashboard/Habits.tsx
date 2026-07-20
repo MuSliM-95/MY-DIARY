@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { ExportBlockKey, HabitProgress, Period } from "../types/dashboard.type";
-import { DayEntry, HabitTask, TrackerState } from "../types/types";
+import { DayEntry, ExportBlockKey, HabitProgress, HabitTask, Period, TrackerState } from "../types/types";
 import { CircleCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 

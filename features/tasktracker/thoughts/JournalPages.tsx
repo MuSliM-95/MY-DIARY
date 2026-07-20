@@ -144,18 +144,6 @@ export const JournalRightPage = forwardRef<HTMLDivElement, any>(
               <div className={gridBlock}>
                 <div className="text-xl font-bold tracking-tight text-white/90">
                   {
-                    Object.values(item.day?.prayers || {}).filter(Boolean)
-                      .length
-                  }{" "}
-                  / 5
-                </div>
-                <div className="text-[11px] opacity-40 mt-1 uppercase tracking-wider">
-                  Намазы
-                </div>
-              </div>
-              <div className={gridBlock}>
-                <div className="text-xl font-bold tracking-tight text-white/90">
-                  {
                     (item.day?.todos || []).filter((t: any) => t.completed)
                       .length
                   }{" "}
@@ -163,21 +151,6 @@ export const JournalRightPage = forwardRef<HTMLDivElement, any>(
                 </div>
                 <div className="text-[11px] opacity-40 mt-1 uppercase tracking-wider">
                   ДНЕВНЫЕ ЦЕЛИ
-                </div>
-              </div>
-              <div className={gridBlock}>
-                <div
-                  className={cn(
-                    "text-sm font-semibold tracking-wide",
-                    item.day?.isFinished
-                      ? "text-emerald-400/90"
-                      : "text-amber-500/80"
-                  )}
-                >
-                  {item.day?.isFinished ? "Завершен" : "В процессе"}
-                </div>
-                <div className="text-[11px] opacity-40 mt-2 uppercase tracking-wider">
-                  Статус дня
                 </div>
               </div>
             </div>

@@ -37,10 +37,10 @@ export const useTrackerData = ({
     .sort(([a], [b]) => new Date(a).getTime() - new Date(b).getTime())
     .reduce(
       (acc, [key, isFinished], index, arr) => {
-        // if (!isFinished.isFinished) {
-        //   acc.curr = 0;
-        //   return acc;
-        // }
+        if (!isFinished.isFinished) {
+          acc.curr = 0;
+          return acc;
+        }
 
         if (index === 0) {
           acc.curr = 1;

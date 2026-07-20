@@ -2,7 +2,8 @@ import React, { ForwardRefExoticComponent, RefAttributes } from "react";
 import { motion } from "framer-motion";
 import { LucideProps } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ExportBlockKey } from "../types/dashboard.type";
+import { ExportBlockKey } from "../types/types";
+
 
 interface Props {
   className?: string;

@@ -1,13 +1,12 @@
 "use client";
 import React from "react";
 import QuoteSection from "./QuoteSection";
-import { Check } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import { View } from "../types/types";
 import { MetricCard } from "../MetricCard";
-import { addPrayer, updateQuranTime } from "@/store/hooks/trackerSlice";
-import { cn } from "@/lib/utils";
+import { updateQuranTime } from "@/store/hooks/trackerSlice";
+
 
 interface Props {
   className?: string;
@@ -18,13 +17,6 @@ interface Props {
   isDarkTheme: boolean;
 }
 
-const defaultPrayers = {
-  Фаджр: false,
-  Зухр: false,
-  Аср: false,
-  Магриб: false,
-  Иша: false,
-};
 
 export const Prayers: React.FC<Props> = ({
   className,
@@ -44,25 +36,11 @@ export const Prayers: React.FC<Props> = ({
     (state) => state.tracker.yearlyData[dayKey]
   );
 
-  const prayersData = yearlyData?.prayers ?? defaultPrayers;
 
   const timerHandler = (minutes: number) => {
     dispatch(updateQuranTime({ dayKey, minutes }));
   };
 
-  const togglePrayer = (name: string) => {
-    dispatch(
-      addPrayer({
-        dayKey,
-        prayers: {
-          ...prayersData,
-          [name]: !prayersData[name],
-        },
-      })
-    );
-  };
-
-  const prayerAccentColor = isDarkTheme ? "amber" : "emerald";
 
   return (
     <div
@@ -76,35 +54,6 @@ export const Prayers: React.FC<Props> = ({
         isDarkTheme={isDarkTheme}
       />
 
-      {/* <h3
-        className={`text-[10px] uppercase font-black tracking-widest ${
-          isDarkTheme ? "text-amber-400" : "text-emerald-400"
-        }`}
-      >
-        Азкары
-      </h3> */}
-
-      {/* <div className="flex divide-x divide-white/10 overflow-hidden rounded-2xl border border-white/10">
-        <button className="flex flex-1 items-center justify-between p-5 hover:bg-white/5 transition">
-          <span className="font-medium text-white">Утренние азкары</span>
-          <span
-            className={cn(
-              "h-2 w-2 rounded-full",
-              isDarkTheme ? "bg-amber-400" : "bg-emerald-400"
-            )}
-          />
-        </button>
-
-        <button className="flex flex-1 items-center justify-between p-5 hover:bg-white/5 transition">
-          <span className="font-medium text-white">Вечерние азкары</span>
-          <span
-            className={cn(
-              "h-2 w-2 rounded-full",
-              isDarkTheme ? "bg-amber-400" : "bg-emerald-400"
-            )}
-          />
-        </button>
-      </div> */}
       <div style={{ maxWidth: 500 }}>
         <MetricCard
           title="Коран (минуты)"

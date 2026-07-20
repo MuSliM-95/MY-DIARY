@@ -31,7 +31,6 @@ export const trackerSlice = createSlice({
         state.yearlyData[dayKey] = {
           isFinished: false,
           todos: [],
-          prayers: {},
           Quran: 0,
           reflection: "",
         };
@@ -51,39 +50,10 @@ export const trackerSlice = createSlice({
         state.yearlyData[action.payload.dayKey] = {
           isFinished: false,
           todos: [],
-          prayers: {
-            Фаджр: false,
-            Зухр: false,
-            Аср: false,
-            Магриб: false,
-            Иша: false,
-          },
           Quran: 0,
           reflection: "",
         };
       }
-    },
-
-    addPrayer: (
-      state,
-      action: PayloadAction<{
-        dayKey: string;
-        prayers: { [key: string]: boolean };
-      }>
-    ) => {
-      const { dayKey, prayers } = action.payload;
-
-      if (!state.yearlyData[dayKey]) {
-        state.yearlyData[dayKey] = {
-          isFinished: false,
-          todos: [],
-          prayers: {},
-          Quran: 0,
-          reflection: "",
-        };
-      }
-
-      state.yearlyData[dayKey].prayers = prayers;
     },
 
     // 2. Переключение статуса задачи (чекбокс)
@@ -128,7 +98,6 @@ export const trackerSlice = createSlice({
         state.yearlyData[dayKey] = {
           isFinished: true,
           todos: [],
-          prayers: {},
           Quran: 0,
           reflection: "",
         };
@@ -259,10 +228,6 @@ export const trackerSlice = createSlice({
           ...oldDay,
           ...newDay,
           todos: [...(oldDay?.todos || []), ...(newDay?.todos || [])],
-          prayers: {
-            ...(oldDay?.prayers || {}),
-            ...(newDay?.prayers || {}),
-          },
           Quran: newDay?.Quran ?? oldDay?.Quran ?? 0,
           reflection: newDay?.reflection ?? oldDay?.reflection ?? "",
         };
@@ -301,55 +266,6 @@ export const trackerSlice = createSlice({
       };
     },
 
-    // importMerge: (state, action: PayloadAction<TrackerState>) => {
-    //   const incoming = action.payload;
-
-    //   const yearlyData = { ...state.yearlyData };
-
-    //   Object.entries(incoming.yearlyData || {}).forEach(([date, newDay]) => {
-    //     const oldDay = yearlyData[date];
-
-    //     yearlyData[date] = {
-    //       ...oldDay,
-    //       ...newDay,
-    //       todos: [...(oldDay?.todos || []), ...(newDay?.todos || [])],
-    //       prayers: {
-    //         ...(oldDay?.prayers || {}),
-    //         ...(newDay?.prayers || {}),
-    //       },
-    //       Quran: newDay?.Quran ?? oldDay?.Quran ?? 0,
-    //       reflection: newDay?.reflection ?? oldDay?.reflection ?? "",
-    //     };
-    //   });
-
-    //   const habitsMap = new Map();
-
-    //   state.habits.forEach((h) => habitsMap.set(h.id, h));
-
-    //   (incoming.habits || []).forEach((h) => {
-    //     const existing = habitsMap.get(h.id);
-
-    //     if (!existing) {
-    //       habitsMap.set(h.id, h);
-    //     } else {
-    //       habitsMap.set(h.id, {
-    //         ...existing,
-    //         ...h,
-    //         completed: {
-    //           ...existing.completed,
-    //           ...h.completed,
-    //         },
-    //       });
-    //     }
-    //   });
-
-    //   return {
-    //     ...state,
-    //     yearlyData,
-    //     habits: Array.from(habitsMap.values()),
-    //   };
-    // },
-
     updateDayEntry: (state, action: PayloadAction<{ date: string }>) => {
       state.yearlyData[action.payload.date].isFinished = false;
     },
@@ -367,7 +283,6 @@ export const {
   updateQuranTime,
   createDate,
   finishDay,
-  addPrayer,
   updateReflection,
   addHabit,
   updateHabitTaskProgress,

@@ -72,8 +72,8 @@ const QuoteSection: React.FC<QuoteSectionProps> = ({
               isDarkTheme ? "text-[#f5f5f5]" : "text-[#d7ffe8]"
             } italic text-[15px] leading-relaxed font-medium`}
           >
-            «Если вы хотите лучших результатов, сосредоточьтесь не на целях, а
-            на системе их достижения.»
+            «Воистину, Аллах не меняет положения людей, пока они не изменят
+            самих себя».
           </p>
 
           <div className="flex items-center gap-2">
@@ -82,7 +82,7 @@ const QuoteSection: React.FC<QuoteSectionProps> = ({
             <span
               className={`text-${accentColor}-500 text-[10px] font-black uppercase tracking-[0.2em]`}
             >
-              Атомные привычки
+              Коран, 13:11
             </span>
           </div>
         </div>

@@ -51,12 +51,7 @@ const CalendarBoard: React.FC<CalendarBoardProps> = ({
       total += entry.todos.length;
       done += entry.todos.filter((t: any) => t.completed).length;
     }
-
-    // PRAYERS
-    const prayers = Object.values(entry?.prayers || {});
-    total += prayers.length;
-    done += prayers.filter(Boolean).length;
-
+  
     // QURAN
     total += 1;
     if ((entry?.Quran || 0) > 0) done += 1;
