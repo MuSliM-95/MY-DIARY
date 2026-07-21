@@ -256,10 +256,13 @@ export default function HabitsSection({ isDarkTheme, activeDate }: Props) {
     setCategory(habit.category);
     setTimeOfDay(habit.timeOfDay);
     setTasks(habit.tasks);
-    formRef.current?.scrollIntoView({
-      behavior: "smooth", // Animates the scroll instead of a sudden jump
-      block: "start", // Aligns the top of the element to the top of the viewport
-    });
+
+    setTimeout(() => {
+      (formRef.current as any)?.scrollIntoView({
+        behavior: "smooth", // Animates the scroll instead of a sudden jump
+        block: "start", // Aligns the top of the element to the top of the viewport
+      });
+    }, 0);
   };
 
   const closeForm = () => {
