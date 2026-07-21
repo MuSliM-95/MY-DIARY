@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Plus,
@@ -34,6 +34,8 @@ interface Props {
 
 export default function HabitsSection({ isDarkTheme, activeDate }: Props) {
   const habits = useAppSelector((state) => state.tracker.habits);
+
+  const formRef = useRef(null);
 
   const dispatch = useAppDispatch();
 
@@ -254,6 +256,10 @@ export default function HabitsSection({ isDarkTheme, activeDate }: Props) {
     setCategory(habit.category);
     setTimeOfDay(habit.timeOfDay);
     setTasks(habit.tasks);
+    formRef.current?.scrollIntoView({
+      behavior: "smooth", // Animates the scroll instead of a sudden jump
+      block: "start", // Aligns the top of the element to the top of the viewport
+    });
   };
 
   const closeForm = () => {
@@ -591,9 +597,11 @@ export default function HabitsSection({ isDarkTheme, activeDate }: Props) {
               opacity: 0,
               y: 10,
             }}
+            ref={formRef}
             className={`
               rounded-[2rem]
               border
+              scroll-mt-20
               p-5
               flex flex-col gap-4
               ${card}
